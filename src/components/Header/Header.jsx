@@ -25,7 +25,6 @@ function Header() {
                                 <span>Ethiopia</span>
                             </div>
                         </Link>
-
                     </div>
                     <Link className={classes.search}>
                         {/* search */}

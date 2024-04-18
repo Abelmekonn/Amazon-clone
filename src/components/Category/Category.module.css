@@ -1,6 +1,6 @@
 .Category_container{
     position: relative;
-    margin-top: -21%;
+    margin-top: -20%;
     display: grid;
     grid-template-columns: repeat(4,1fr);
     place-items: center;
@@ -12,6 +12,7 @@
     box-shadow:0 0 10px rgba(0, 0, 0, 0.2);
     display: flex;
     justify-content: space-around;
+    margin-bottom: 20px;
 }
 .category .anchor{
     display: flex;
@@ -20,7 +21,7 @@
 }
 .category img{
     width: 100%;
-    object-fit: contain;
+    object-fit: cover;
 }
 .category a{
     text-decoration: none;
@@ -28,7 +29,11 @@
 }
 .category h2,
 .category p{
-    margin-left: 15px;
+    margin-left: 10px;
+}
+.category h2{
+    font-size: 21px;
+    font-weight: 700;
 }
 .category p{
     font-size: 12px;
@@ -61,5 +66,5 @@
 }
 .CategoryCard_list .list img{
     object-fit: cover;
-    height: 8rem;
+    height: 7.5rem;
 }

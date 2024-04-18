@@ -30,6 +30,7 @@
     height: 80%;
     vertical-align: middle;
 }
+
 .delivery{
     display: flex;
     justify-self: end;

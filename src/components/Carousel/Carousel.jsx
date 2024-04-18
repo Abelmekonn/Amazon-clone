@@ -33,7 +33,7 @@ function Carouselfun() {
                 renderArrowPrev={(onClickHandler, hasPrev, label) =>
                     hasPrev && (
                         <button onClick={onClickHandler} title={label} style={{ ...customArrowStyles, left: 0 }}>
-                            <ArrowBackIosIcon style={{fontSize:"50px"}} />
+                            <ArrowBackIosIcon style={{fontSize:"60px",fontWeight:'100'}} />
                         </button>
                     )
                 }

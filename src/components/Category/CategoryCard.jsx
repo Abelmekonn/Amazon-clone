@@ -1,5 +1,5 @@
 import React from 'react';
-import  { Link } from 'react-dom'
+import { Link } from 'react-router-dom';
 import classes from './Category.module.css';
 
 function CategoryCard({ data }) {
@@ -20,7 +20,9 @@ function CategoryCard({ data }) {
                         ))}
                     </div>
                 ) : (
-                    <img className={classes.single} src={data.img} alt={data.title} />
+                    <div>
+                        <img className={classes.single} src={data.img} alt={data.title} />
+                    </div>
                 )
                 }
                 <p>shop now</p>
