@@ -3,14 +3,13 @@ import { Link } from 'react-router-dom';
 import classes from './Category.module.css';
 
 function CategoryCard({ data }) {
-    console.log(data.name)
+    
     return (
         <div className={classes.category}>
             <Link to={`category/${data.name}`} className={classes.anchor}>
                 <span>
                     <h2>{data.title}</h2>
                 </span>
-
                 {data.list ? (
                     <div className={classes.CategoryCard_list}>
                         {data.list.map((item, index) => (
