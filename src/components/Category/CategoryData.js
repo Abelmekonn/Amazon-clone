@@ -24,6 +24,7 @@ import makeup from './img/makeup.jpg'
 
 export const CategoryInfo = [
     {
+        name:"electronics",
         title: 'Gaming accessories',
         list: [
             {
@@ -70,6 +71,7 @@ export const CategoryInfo = [
         ]
     },
     {
+        
         title: 'Amazon Gadget Store',
         list: [
             {
@@ -91,6 +93,7 @@ export const CategoryInfo = [
         ]
     },
     {
+        name:"women's clothing",
         title: 'Shop deals in Fashion',
         list: [
             {
@@ -116,6 +119,7 @@ export const CategoryInfo = [
         img: doll
     },
     {
+        name:"women's clothing",
         title: 'Fashion trends you like',
         list: [
             {
@@ -137,6 +141,7 @@ export const CategoryInfo = [
         ]
     },
     {
+        name:"jewelery",
         title: 'Beauty steals under $25',
         img: makeup
     },
