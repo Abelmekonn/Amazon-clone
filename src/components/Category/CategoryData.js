@@ -46,10 +46,12 @@ export const CategoryInfo = [
         ]
     },
     {
+        name:"electronics",
         title: 'Deals in PCs',
         img: img5
     },
     {
+        name:"electronics",
         title: 'Refresh your space',
         list: [
             {
@@ -93,7 +95,7 @@ export const CategoryInfo = [
         ]
     },
     {
-        name:"women's clothing",
+        name:"men's clothing",
         title: 'Shop deals in Fashion',
         list: [
             {
@@ -115,6 +117,7 @@ export const CategoryInfo = [
         ]
     },
     {
+        name:"jewelery",
         title: 'Toys under $25',
         img: doll
     },
