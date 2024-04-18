@@ -1,0 +1,11 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+@font-face {
+  font-family: amazon;
+  src: url(./assets/font/Amazon-Ember-Regular.ttf);
+}
+body, html{
+  font-family: amazon;
+}

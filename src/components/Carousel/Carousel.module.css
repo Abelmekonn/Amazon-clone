@@ -1,0 +1,33 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.img{
+    width: 100%;
+}
+.hero_img {
+    position: relative;
+}
+
+.hero_img::before {
+    content: "";
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    height: 200px; /* Adjust the height of the gradient as needed */
+    background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0),
+        rgba(255,255,255,1)
+    );
+}
+.carouselContainer {
+    position: relative;
+    opacity: 1;
+    transition: opacity 0.3s ease; 
+}
+
+.carouselContainer.carousel-slider {
+    opacity: 0; 
+}
+
