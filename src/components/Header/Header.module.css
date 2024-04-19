@@ -6,6 +6,11 @@
     font-family: amazon;
     src: url(../../assets/font/Amazon-Ember-Regular.ttf);
 }
+.fixed{
+    position: sticky;
+    top:0;
+    z-index: 100;
+}
 .header_container{
     font-family: amazon;
     background-color: #131921;

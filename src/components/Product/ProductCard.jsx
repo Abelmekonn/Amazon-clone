@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import classes from './Product.module.css';
 import { DataContext } from '../DataProvider/DataProvider';
 import {Type} from '../../Utility/action.type'
-function ProductCard({ product,flex,renderDesc }) {
+
+function ProductCard({ product,flex,renderDesc,renderAdd }) {
     const {image,title,id,rating,price,description}=product;
     if (!product || !rating) {
         return null; 
@@ -48,7 +49,8 @@ function ProductCard({ product,flex,renderDesc }) {
                     <span style={{paddingLeft:"5px"}}>{rating.count}</span>
                 </div>
                 <p>${price}</p>
-                <button className={classes.button} onClick={addToCart}>Add To Cart</button>
+                {!renderAdd && <button className={classes.button} onClick={addToCart}>Add To Cart</button>}
+                
             </div>
         </div>
     );
