@@ -36,11 +36,12 @@ h3{
 .button{
     width: 100%;
     margin: 5px auto;
-    padding: 10px 0;
+    padding: 5px 0;
     border-radius: 8px;
     background: rgb(253,77,29);
     border: none;
-    font-size: 18px;
+    font-size: 15px;
+    color: #eee9e9;
     cursor: pointer;
     display: none;
 }
@@ -55,11 +56,40 @@ h3{
     display: flex;
     flex-wrap: wrap;
 }
+body{
+    background-color: #FFFFFF !important;
+}
 .product_flexed{
     box-shadow: none;
     height: auto;
     display: flex;
+    flex-direction: row;
     gap: 50px;
-    width: 100%;
+    width: 50%;
+    margin-top: 10px;
 }
-.product_flexed 
+.product_flexed h3{
+    font-size: 17px;
+    font-weight: 700;
+    padding: 20px 0px;
+}
+p{
+    margin-bottom: 20px;
+}
+.product_flexed p{
+    font-size: 14px;
+}
+.product_flexed .button{
+    display: block;
+    position: static;
+}
+.product_flexed img{
+    width: 300px !important;
+    height: auto;
+}
+@media screen and (max-width: 960px){
+    .product_flexed{
+        display: flex;
+        flex-direction: column;
+    }
+}

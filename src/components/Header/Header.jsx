@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import classes from './Header.module.css'
 import {Link } from "react-router-dom";
 import usaFlag from '../../assets/images/united-states.png'
@@ -6,7 +6,11 @@ import SearchIcon from '@mui/icons-material/Search';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import LowerHeader from './LowerHeader';
+import {DataContext} from '../DataProvider/DataProvider'
+
 function Header() {
+    const [{basket},dispatch]=useContext(DataContext)
+    console.log(basket.length)
     return (
         <>
             <section>
@@ -54,7 +58,7 @@ function Header() {
                         {/* cart */}
                         <Link to="/cart" className={classes.cart}>
                             <ShoppingCartOutlinedIcon />
-                            <span>0</span>
+                            <span>{basket.length}</span>
                             <p>cart</p>
                         </Link>
                     </div>

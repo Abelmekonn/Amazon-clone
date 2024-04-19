@@ -1,14 +1,15 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { Link } from 'react-router-dom';
 import classes from './Product.module.css';
-
-function ProductCard({ product,flex }) {
-    // Check if the product object and its rating property are defined
-    if (!product || !product.rating) {
-        return null; // Render nothing if product or rating is undefined
+import { DataContext } from '../DataProvider/DataProvider';
+import {Type} from '../../Utility/action.type'
+function ProductCard({ product,flex,renderDesc }) {
+    const {image,title,id,rating,price,description}=product;
+    if (!product || !rating) {
+        return null; 
     }
 
-    const rate = product.rating.rate;
+    const rate = rating.rate;
     const fullStars = Math.floor(rate);
     const hasHalfStar = rate - fullStars >= 0.5;
     const remainingStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
@@ -26,19 +27,29 @@ function ProductCard({ product,flex }) {
         }
         return stars;
     };
+    const [state,dispatch]= useContext(DataContext);
+    const addToCart=()=>{
+        dispatch({
+            type: Type.ADD_TO_BASKET,
+            item:{image,title,id,rating,price,description}
+        })
+    }
 
     return (
-        <div className={`${classes.product} ${flex?classes.product_flex:""}`}>
-            <Link to={`products/${product.id}`} className={classes.anchor}>
-                <img src={product.image} alt="product" />
+        <div className={`${classes.product} ${flex?classes.product_flexed:""}`}>
+            <Link to={`products/${id}`} className={classes.anchor}>
+                <img src={image} alt="product" />
             </Link>
-            <h3>{product.title}</h3>
-            <div className={classes.review}>
-                {renderStars()}
-                <span style={{paddingLeft:"5px"}}>{product.rating.count}</span>
+            <div>
+                <h3>{title}</h3>
+                {renderDesc && <p>{description}</p>}
+                <div className={classes.review}>
+                    {renderStars()}
+                    <span style={{paddingLeft:"5px"}}>{rating.count}</span>
+                </div>
+                <p>${price}</p>
+                <button className={classes.button} onClick={addToCart}>Add To Cart</button>
             </div>
-            <p>${product.price}</p>
-            <button className={classes.button}>Add to cart</button>
         </div>
     );
 }
