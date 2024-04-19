@@ -5,6 +5,7 @@ import axios from 'axios';
 import classes from './Product.module.css';
 import Loader from '../Loader/Loader';
 function Product() {
+    const {image,title,id,rating,price,description}=product;
     const [products, setProducts] = useState([]);
     const [error, setError] = useState(null);
     const [isLoading, setisLoading] = useState(false)
@@ -36,16 +37,16 @@ function Product() {
             isLoading?(<Loader />):(
                 <div className={classes.landing_product}>
                 {products.map((product) => (
-                    <div key={product.id} className={classes.product}>
-                        <Link to={`products/${product.id}`} className={classes.anchor}>
-                            <img src={product.image} alt="product" />
+                    <div key={id} className={classes.product}>
+                        <Link to={`products/${id}`} className={classes.anchor}>
+                            <img src={image} alt="product" />
                         </Link>
-                        <h3>{product.title}</h3>
+                        <h3>{title}</h3>
                         <div className={classes.review}>
-                            <span style={{ color: 'gold' }}>{product.rating.rate}</span>
-                            <span style={{ paddingLeft: "5px" }}>{product.rating.count}</span>
+                            <span style={{ color: 'gold' }}>{rating.rate}</span>
+                            <span style={{ paddingLeft: "5px" }}>{rating.count}</span>
                         </div>
-                        <p>${product.price}</p>
+                        <p>${price}</p>
                         <button className={classes.button}>Add to cart</button>
                     </div>
                 ))}
