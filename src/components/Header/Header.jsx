@@ -10,7 +10,9 @@ import {DataContext} from '../DataProvider/DataProvider'
 
 function Header() {
     const [{basket},dispatch]=useContext(DataContext)
-    console.log(basket.length)
+    const totalItem=basket?.reduce((amount,item)=>{
+        return  amount+ item.count
+    },0)
     return (
         <>
             <section className={classes.fixed}>
