@@ -4,14 +4,19 @@ import LayOut from '../../components/LayOut/LayOut';
 import { DataContext } from '../../components/DataProvider/DataProvider';
 import ProductCard from '../../components/Product/ProductCard';
 import { Link } from 'react-router-dom';
+import classes from './cart.module.css'
+import CurrencyFormat from '../../components/ConcurencyFormat/ConcurencyFormat';
 
 function Cart() {
   const [{ basket,user },dispatch] = useContext(DataContext);
-  const total=basket.reduce((amount,item))
+  const total=basket.reduce((amount,item)=>{
+    return item.price * item.amount + amount
+  },0)
+  console.log(total)
   return (
     <LayOut>
-      <section>
-        <div>
+      <section className={classes.container}>
+        <div className={classes.cart_container}>
           <h2>Hello</h2>
           <h3>Your shopping basket</h3>
           <hr />
@@ -23,8 +28,9 @@ function Cart() {
                   key={i} // Use a unique identifier from the product object
                   renderDesc={true}
                   flex={true}
-                  renderAdd={false}
+                  renderAdd={true}
                   product={item}
+                  cartCard={true}
                 />
                 
               ))
@@ -33,10 +39,11 @@ function Cart() {
         </div>
         <div>
           {basket?.length !== 0 && (
-            <div>
+            <div className={classes.subtotal}>
               <div>
                 <p>Subtotal ({basket?.length} items) </p>
-                {/* <CurrencyFormat amount="total" /> */}
+                
+                <CurrencyFormat amount={total} />
               </div>
               <span>
                 <input type="checkbox" />

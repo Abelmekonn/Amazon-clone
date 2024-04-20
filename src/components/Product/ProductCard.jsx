@@ -4,7 +4,7 @@ import classes from './Product.module.css';
 import { DataContext } from '../DataProvider/DataProvider';
 import {Type} from '../../Utility/action.type'
 
-function ProductCard({ product,flex,renderDesc,renderAdd }) {
+function ProductCard({ product,flex,renderDesc,renderAdd,cartCard }) {
     const {image,title,id,rating,price,description}=product;
     if (!product || !rating) {
         return null; 
@@ -37,7 +37,7 @@ function ProductCard({ product,flex,renderDesc,renderAdd }) {
     }
 
     return (
-        <div className={`${classes.product} ${flex?classes.product_flexed:""}`}>
+        <div className={`${classes.product} ${flex?classes.product_flexed:""} ${cartCard?classes.cartCard:''} `}>
             <Link to={`products/${id}`} className={classes.anchor}>
                 <img src={image} alt="product" />
             </Link>

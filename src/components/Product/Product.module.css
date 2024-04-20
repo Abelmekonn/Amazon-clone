@@ -87,6 +87,9 @@ p{
     width: 300px !important;
     height: auto;
 }
+.cartCard{
+    width: 100% !important;
+}
 @media screen and (max-width: 960px){
     .product_flexed{
         display: flex;
