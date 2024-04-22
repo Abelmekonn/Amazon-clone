@@ -39,9 +39,13 @@
 .delivery{
     display: flex;
     justify-self: end;
+    
+}
+.delivery div{
+    height: 1rem;
 }
 .delivery p{
-    margin-top: 8px;
+    margin-top: 10px;
     font-size: 10px;
 }
 .delivery .location{

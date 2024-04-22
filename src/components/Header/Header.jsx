@@ -11,7 +11,7 @@ import {DataContext} from '../DataProvider/DataProvider'
 function Header() {
     const [{basket},dispatch]=useContext(DataContext)
     const totalItem=basket?.reduce((amount,item)=>{
-        return  amount+ item.count
+        return  amount+ item.amount
     },0)
     return (
         <>
@@ -23,7 +23,7 @@ function Header() {
                             <Link to="/">
                                 <img src="https://pngimg.com/uploads/amazon/amazon_PNG11.png" alt="amazon logo" />
                             </Link>
-                            <Link className={classes.delivery}>
+                            <Link to="/" className={classes.delivery}>
                                 <span className={classes.location}>
                                     <LocationOnIcon />
                                 </span>
@@ -61,7 +61,7 @@ function Header() {
                             {/* cart */}
                             <Link to="/cart" className={classes.cart}>
                                 <ShoppingCartOutlinedIcon />
-                                <span>{basket.length}</span>
+                                <span>{totalItem}</span>
                                 <p>cart</p>
                             </Link>
                         </div>
