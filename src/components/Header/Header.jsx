@@ -48,7 +48,7 @@ function Header() {
                                     <option value="">EN</option>
                                 </select>
                             </Link>
-                            <Link to="/signin" className={classes.account}>
+                            <Link to="/auth" className={classes.account}>
                                 <p> Hell, Sign In</p>
                                 <select name="" id="">
                                     <option value="">Account & Lists</option>
