@@ -1,18 +1,18 @@
 import React, { useContext } from 'react'
 import classes from './Header.module.css'
-import {Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import usaFlag from '../../assets/images/united-states.png'
 import SearchIcon from '@mui/icons-material/Search';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import LowerHeader from './LowerHeader';
-import {DataContext} from '../DataProvider/DataProvider'
-
+import { DataContext } from '../DataProvider/DataProvider'
+import { auth } from '../../Utility/fireBase';
 function Header() {
-    const [{basket},dispatch]=useContext(DataContext)
-    const totalItem=basket?.reduce((amount,item)=>{
-        return  amount+ item.amount
-    },0)
+    const [{ basket, user }, dispatch] = useContext(DataContext)
+    const totalItem = basket?.reduce((amount, item) => {
+        return amount + item.amount
+    }, 0)
     return (
         <>
             <section className={classes.fixed}>
@@ -48,11 +48,22 @@ function Header() {
                                     <option value="">EN</option>
                                 </select>
                             </Link>
-                            <Link to="/auth" className={classes.account}>
-                                <p> Hell, Sign In</p>
-                                <select name="" id="">
-                                    <option value="">Account & Lists</option>
-                                </select>
+                            <Link to={!user && "/auth"} className={classes.account}>
+                                <div>
+                                    {
+                                        user? (
+                                            <>
+                                                <p>Hello {user?.email?.split("@")[0]}</p>
+                                                <span onClick={()=>auth.signOut()}>sign out</span>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <p>Hello, Sign In</p>
+                                                <span>Account & Lists</span>
+                                            </>
+                                        )
+                                    }
+                                </div>
                             </Link>
                             <Link to="/order" className={classes.return}>
                                 <p>Returns</p>

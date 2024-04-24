@@ -1,17 +1,50 @@
-import React,{useState} from 'react'
+import React,{useState,useContext} from 'react'
 import classes from './Auth.module.css';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import {auth} from "../../Utility/fireBase"
+import {signInWithEmailAndPassword,createUserWithEmailAndPassword} from 'firebase/auth'
+import {DataContext} from "../../components/DataProvider/DataProvider"
+import {ClipLoader} from "react-spinners"
+import { Type } from '../../Utility/action.type';
 function Auth() {
   const [email,setEmail]= useState("");
   const [password,setPassword]=useState("");
   const [error,setError]=useState("");
-  const authHandler=(e)=>{
+  const [{user},dispatch]=useContext(DataContext)
+  const [loading,setLoading]=useState({
+    signIn:false,
+    signUp: false
+  });
+  const navigate=useNavigate()
+
+  const authHandler=async(e)=>{
     e.preventDefault()
     if( e.target.name=="signin"){
-      
+      setLoading({...loading,signIn:true})
+      signInWithEmailAndPassword(auth,email,password).then((userInfo)=>{
+        dispatch({
+          type:Type.SET_USER,
+          user:userInfo.user
+        })
+        setLoading({...loading,signIn:false});
+        navigate("/")
+      }).catch((err)=>{
+        setError(err.message)
+        setLoading({...loading,signIn:false});
+      })
     }else{
-
+      setLoading({...loading,signUp: true})
+      createUserWithEmailAndPassword(auth,email,password).then((userInfo)=>{
+        dispatch({
+          type:Type.SET_USER,
+          user:userInfo.user
+        })
+        setLoading({...loading,signUp: false})
+        navigate("/")
+      }).catch((err)=>{
+        setError(err.message)
+        setLoading({...loading,signUp: false})
+      })
     }
   }
   return (
@@ -37,8 +70,9 @@ function Auth() {
             className={classes.login_signInButton} 
             type='submit'
             name="signin"
-          >
-            Sign in
+          >{
+            loading.signIn? (<ClipLoader color="#36d7b7" size={15} />) :("sign in")
+          }
           </button>
         </form>
         {/*  */}
@@ -52,8 +86,13 @@ function Auth() {
         onClick={authHandler} 
         className={classes.login_register}
         name='signup'
-        >Create your account
+        >{
+          loading.signUp? (<ClipLoader color="#36d7b7" size={15} />) :("sign up")
+        }
         </button>
+        {
+          error && <small style={{paddingTop:"5px", color:"red"}}>{error}</small>
+        }
       </div>
     </section>
   );
