@@ -35,7 +35,9 @@
     height: 80%;
     vertical-align: middle;
 }
-
+.selected{
+    width: 100%;
+}
 .delivery{
     display: flex;
     justify-self: center;
@@ -72,6 +74,8 @@
     border: none;
     background-color: #D4D4D4;
     height: 100%;
+    text-decoration: none;
+
 }
 .search input{
     border: 1px solid white;
@@ -83,6 +87,7 @@
 }
 .search svg{
     height: 100%;
+    font-size: 40px;
     padding: 0 10px;
     background: #febd69;
     color: #1a1a1a;
@@ -115,7 +120,7 @@
     font-size: 13px;
 }
 .account{
-    align-items: center;
+    
     justify-content: space-between;
 }
 .account p{
