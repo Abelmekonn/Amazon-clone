@@ -4,6 +4,10 @@
     display: grid;
     grid-template-columns: repeat(4,1fr);
     place-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
 }
 .category{
     height: 420px;
