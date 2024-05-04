@@ -6,16 +6,22 @@ import ProductCard from '../../components/Product/ProductCard'
 import { DataContext } from "../../components/DataProvider/DataProvider"
 import CurrencyFormat from '../../components/ConcurencyFormat/ConcurencyFormat';
 import {axiosInstance} from '../../Api/axios'
+import {ClipLoader} from "react-spinners"
+import { db } from '../../Utility/fireBase';
+import { useNavigate } from 'react-router-dom';
+import { Type } from '../../Utility/action.type';
 
 function Payment() {
     const [{ basket, user }, dispatch] = useContext(DataContext)
     const totalItem = basket?.reduce((amount, item) => {
         return amount + item.amount
     }, 0)
-
+    const [processing,setProcessing]=useState(false)
     const [cardError, setCardError] = useState("")
     const stripe = useStripe();
     const elements = useElements();
+    const navigate=useNavigate()
+
     const handelChange = (e) => {
         console.log(e)
         e.errors?.message ? setCardError(e?.errors?.message) : setCardError('')
@@ -27,13 +33,15 @@ function Payment() {
         e.preventDefault();
     
         try {
+            // backend function --> connect to the client
+            setProcessing(true)
             const response = await axiosInstance({
                 method: "POST",
                 url: `/payment/create?total=${total * 100}`
             });
             const clientSecret = response.data?.clientSecret;
             // client side confirmation
-            const confirmation = await stripe.confirmCardPayment(
+            const paymentIntent = await stripe.confirmCardPayment(
                 clientSecret,
                 {
                     payment_method: {
@@ -41,9 +49,21 @@ function Payment() {
                     }
                 }
             );
+            console.log(paymentIntent)
+            // 3. after conformation --> order firebase database save and clear basket
+            await db.collection("users").doc(user.uid).collection("orders").doc(paymentIntent.id).set({
+                basket: basket,
+                amount: paymentIntent.paymentIntent.amount,
+                created:paymentIntent.paymentIntent.created
+            })
+            dispatch({type:Type.EMPTY_BASKET})
+            setProcessing(false); 
+            navigate("/order",{state:{msg:"you have placed new order"}})
             // Handle the payment confirmation response here
         } catch (error) {
             // Handle errors here
+            console.log(error)
+            setProcessing(false);
         }
     }
     
@@ -68,7 +88,7 @@ function Payment() {
                     <h3>Review item and delivery</h3>
                     <div>
                         {
-                            basket?.map((item) => <ProductCard product={item} flex={true} />)
+                            basket?.map((item) => <ProductCard product={item} flex={true} renderAdd={true} />)
                         }
                     </div>
                 </div>
@@ -87,14 +107,22 @@ function Payment() {
                                     <div style={{display:"flex",gap:"10px"}}>
                                         <p>total order |</p> <CurrencyFormat amount={total} />
                                     </div>
-                                    <button type='submit'>Pay now</button>
+                                    <button type='submit'>
+                                        {
+                                            processing?(<div className={classes.loading}>
+                                                <ClipLoader size={12} />
+                                                <p>please wait ..</p>
+                                                </div>
+                                                ):"Pay now"
+                                        }
+                                        </button>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
             </section>
-        </LayOut>
+        </LayOut> 
     )
 }
 

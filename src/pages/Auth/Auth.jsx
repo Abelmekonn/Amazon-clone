@@ -1,11 +1,12 @@
 import React,{useState,useContext} from 'react'
 import classes from './Auth.module.css';
-import { Link,useNavigate } from 'react-router-dom';
+import { Link,useNavigate,useLocation } from 'react-router-dom';
 import {auth} from "../../Utility/fireBase"
 import {signInWithEmailAndPassword,createUserWithEmailAndPassword} from 'firebase/auth'
 import {DataContext} from "../../components/DataProvider/DataProvider"
 import {ClipLoader} from "react-spinners"
 import { Type } from '../../Utility/action.type';
+
 function Auth() {
   const [email,setEmail]= useState("");
   const [password,setPassword]=useState("");
@@ -16,7 +17,7 @@ function Auth() {
     signUp: false
   });
   const navigate=useNavigate()
-
+  const navStateData=useLocation();
   const authHandler=async(e)=>{
     e.preventDefault()
     if( e.target.name=="signin"){
@@ -27,7 +28,7 @@ function Auth() {
           user:userInfo.user
         })
         setLoading({...loading,signIn:false});
-        navigate("/")
+        navigate(navStateData?.state?.redirect || '/')
       }).catch((err)=>{
         setError(err.message)
         setLoading({...loading,signIn:false});
@@ -40,7 +41,7 @@ function Auth() {
           user:userInfo.user
         })
         setLoading({...loading,signUp: false})
-        navigate("/")
+        navigate(navStateData?.state?.redirect || '/')
       }).catch((err)=>{
         setError(err.message)
         setLoading({...loading,signUp: false})
@@ -56,6 +57,20 @@ function Auth() {
       <div className={classes.login_container}>
         <h1>
           Sign In
+          {
+            navStateData?.state?.msg && (
+              <small 
+                style={{
+                  padding:"5px",
+                  textAlign:"center",
+                  color:'red',
+                  fontWeight:"bold"
+                }}
+              >
+                {navStateData?.state?.msg}
+              </small>
+            )
+          }
         </h1>
         <form action="" method="post">
           <div>
