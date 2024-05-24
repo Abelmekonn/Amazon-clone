@@ -1,11 +1,10 @@
-import React from 'react'
+import React from 'react';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
-import {img} from './img/data'
-import classes from './Carousel.module.css'
+import { img } from './img/data';
+import classes from './Carousel.module.css';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import transitions from '@material-ui/core/styles/transitions';
 function Carouselfun() {
     const customArrowStyles = {
         position: 'absolute',
