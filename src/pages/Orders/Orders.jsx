@@ -28,7 +28,7 @@ function Orders() {
       <section className={classes.container}>
         <div className={classes.order_container}>
           <h2>Your orders</h2>
-          {orders?.length ==0 && <div style={{padding="20px"}}>you don't have orders yet.</div>}
+          {orders?.length ==0 && <div >you don't have yet.</div>}
           {/* Render orders here */}
           {orders.map((eachOrder) => (
             <div key={eachOrder.id}>
